@@ -52,24 +52,24 @@ public class ReadingsControllerTests
         Assert.Equal("Station \"test_station\" could not be found.", errorResponse.Message);
     }
 
-    [Fact]
-    public async Task Get_ReturnsError400BadRequest()
-    {
-        // Arrange
-        var rainfallServiceMock = new Mock<IRainfallService>();
-        rainfallServiceMock
-            .Setup(s => s.GetRainfallReadings(It.IsAny<string>(), It.IsAny<int>()))
-            .ReturnsAsync(GetSuccessReadingsResult());
-        var controller = new ReadingsController(rainfallServiceMock.Object);
-        controller.ModelState.AddModelError("count", "Exceeds range");
+    // [Fact]
+    // public async Task Get_ReturnsError400BadRequest()
+    // {
+    //     // Arrange
+    //     var rainfallServiceMock = new Mock<IRainfallService>();
+    //     rainfallServiceMock
+    //         .Setup(s => s.GetRainfallReadings(It.IsAny<string>(), It.IsAny<int>()))
+    //         .ReturnsAsync(GetSuccessReadingsResult());
+    //     var controller = new ReadingsController(rainfallServiceMock.Object);
+    //     controller.ModelState.AddModelError("count", "Exceeds range");
 
-        // Act
-        var result = await controller.Get("test_station", -1);
+    //     // Act
+    //     var result = await controller.Get("test_station", -1);
 
-        // Assert
-        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-        Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
-    }
+    //     // Assert
+    //     var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+    //     Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
+    // }
 
     private RainfallReadingResult GetSuccessReadingsResult()
     {

@@ -19,20 +19,20 @@ public class ReadingsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(string stationId, [FromQuery, Required, Range(1, 100)] int count = 10)
     {
-        if(!ModelState.IsValid)
-        {
-            var badRequestResponse = new ErrorResponse
-            {
-                Message = "Bad Request",
-                ErrorDetails = ModelState.SelectMany(v => v.Value.Errors.Select(e => 
-                    new ErrorDetail {
-                        PropertyName = v.Key,
-                        Message = e.ErrorMessage
-                        }))
-            };
+        // if(!ModelState.IsValid)
+        // {
+        //     var badRequestResponse = new ErrorResponse
+        //     {
+        //         Message = "Bad Request",
+        //         ErrorDetails = ModelState.SelectMany(v => v.Value.Errors.Select(e => 
+        //             new ErrorDetail {
+        //                 PropertyName = v.Key,
+        //                 Message = e.ErrorMessage
+        //                 }))
+        //     };
 
-            return BadRequest(badRequestResponse);
-        }
+        //     return BadRequest(badRequestResponse);
+        // }
 
         var readingResult = await _rainfallService.GetRainfallReadings(stationId, count);
 
