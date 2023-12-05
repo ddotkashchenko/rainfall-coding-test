@@ -1,3 +1,4 @@
+using Rainfall.Api.Filters;
 using Rainfall.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseExceptionHandler("/error");
 app.MapControllers();
 
 app.Run();
