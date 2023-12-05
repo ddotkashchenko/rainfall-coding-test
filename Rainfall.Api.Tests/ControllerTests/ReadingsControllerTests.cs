@@ -27,7 +27,7 @@ public class ReadingsControllerTests
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
 
-        var readingsResponse = Assert.IsAssignableFrom<RainfallReadingResponse>(okResult.Value);
+        var readingsResponse = Assert.IsAssignableFrom<Contracts.RainfallReadingResponse>(okResult.Value);
         Assert.Equal(3, readingsResponse.Readings.Count());
     }
 
