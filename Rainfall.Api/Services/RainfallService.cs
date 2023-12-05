@@ -1,6 +1,8 @@
+using Rainfall.Api.Domain;
+
 namespace Rainfall.Api.Services;
 
-public class RainfallService
+public class RainfallService : IRainfallService
 {
     private readonly HttpClient _client;
     public RainfallService(HttpClient client)
@@ -8,8 +10,8 @@ public class RainfallService
         _client = client;
     }
 
-    public async Task GetRainfallReadings(string stationId, int count)
+    public async Task<IEnumerable<RainfallReading>> GetRainfallReadings(string stationId, int count)
     {
-        
+        return new List<RainfallReading>{new RainfallReading()};
     }
 }
