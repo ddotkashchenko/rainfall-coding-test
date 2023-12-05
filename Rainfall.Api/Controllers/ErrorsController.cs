@@ -9,6 +9,7 @@ namespace Rainfall.Api.Controllers;
 [ApiExplorerSettings(IgnoreApi = true)]
 public class ErrorsController : ControllerBase
 {
+    [HttpGet]
     [Route("error")]
     public ErrorResponse Error()
     {

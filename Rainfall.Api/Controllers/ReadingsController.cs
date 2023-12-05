@@ -7,6 +7,7 @@ namespace Rainfall.Api.Controllers;
 
 [ApiController]
 [Route("rainfall/id/{stationId}/[controller]")]
+[Produces("application/json")]
 public class ReadingsController : ControllerBase
 {
     private readonly IRainfallService _rainfallService;
@@ -16,38 +17,44 @@ public class ReadingsController : ControllerBase
         _rainfallService = rainfallService;
     }
 
+    /// <summary>
+    /// Get rainfall readings by station Id
+    /// </summary>
+    /// <remarks>
+    /// Retrieve the latest readings for the specified stationId
+    /// </remarks>
+    /// <param name="stationId">The id of the reading station</param>
+    /// <param name="count">The number of readings to return</param>
+    /// <response code="200">A list of rainfall readings successfully retrieved</response>
+    /// <response code="400">Invalid request</response>
+    /// <response code="404">No readings found for the specified stationId</response>
+    /// <response code="500">Internal server error</response>
     [HttpGet]
-    public async Task<IActionResult> Get(string stationId, [FromQuery, Required, Range(1, 100)] int count = 10)
+    [ProducesResponseType(typeof(RainfallReadingResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Get(string stationId, [FromQuery, Range(1, 100)] int count = 10)
     {
-        // if(!ModelState.IsValid)
-        // {
-        //     var badRequestResponse = new ErrorResponse
-        //     {
-        //         Message = "Bad Request",
-        //         ErrorDetails = ModelState.SelectMany(v => v.Value.Errors.Select(e => 
-        //             new ErrorDetail {
-        //                 PropertyName = v.Key,
-        //                 Message = e.ErrorMessage
-        //                 }))
-        //     };
-
-        //     return BadRequest(badRequestResponse);
-        // }
-
         var readingResult = await _rainfallService.GetRainfallReadings(stationId, count);
 
         if (!readingResult.Success)
         {
             if (readingResult.Errors.Any(e => e == Domain.RainfallReadingError.StationNotFound))
             {
-                var errorResult = new ErrorResponse
+                var stationNotFoundResult = new ErrorResponse
                 {
                     Message = $"Station \"{stationId}\" could not be found."
                 };
-                return NotFound(errorResult);
+                return NotFound(stationNotFoundResult);
             }
 
-            return UnprocessableEntity();
+            var errorResult = new ErrorResponse
+            {
+                Message = "Response could not be processed."
+            };
+
+            return BadRequest(errorResult);
         }
 
         var response = new RainfallReadingResponse

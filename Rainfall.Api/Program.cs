@@ -1,24 +1,41 @@
+using Microsoft.OpenApi.Models;
 using Rainfall.Api.Filters;
 using Rainfall.Api.Services;
+using Rainfall.Api.Swashbuckle;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers(options => options.Filters.Add<ModelValidationFilter>());
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options => 
+{
+    options.SwaggerDoc("v1",
+    new OpenApiInfo
+        {
+        Title = "Rainfall Api",
+        Version = "1.0",
+        Description = "An API which provides rainfall reading data"
+        });
+    options.AddServer(new OpenApiServer { Url = builder.Configuration["Urls"], Description = "Rainfall Api" });
+    options.DocumentFilter<TagDescriptionsDocumentFilter>();
+    
+     var filePath = Path.Combine(AppContext.BaseDirectory, "Rainfall.Api.xml");
+     options.IncludeXmlComments(filePath);
+});
+
 builder.Services.AddHttpClient();
 builder.Services.AddTransient<IRainfallService, RainfallService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => 
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rainfall Api");
+    });
 }
 
 app.UseHttpsRedirection();
