@@ -4,5 +4,5 @@ namespace Rainfall.Api.Services;
 
 public interface IRainfallService
 {
-    Task<IEnumerable<RainfallReading>> GetRainfallReadings(string stationId, int count);
+    Task<RainfallReadingResult> GetRainfallReadings(string stationId, int count);
 }

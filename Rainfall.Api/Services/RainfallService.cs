@@ -10,8 +10,12 @@ public class RainfallService : IRainfallService
         _client = client;
     }
 
-    public async Task<IEnumerable<RainfallReading>> GetRainfallReadings(string stationId, int count)
+    public async Task<RainfallReadingResult> GetRainfallReadings(string stationId, int count)
     {
-        return new List<RainfallReading>{new RainfallReading()};
+        return new RainfallReadingResult 
+        {
+            Success = true,
+            Readings = new List<RainfallReading>{new RainfallReading()}
+        };
     }
 }
