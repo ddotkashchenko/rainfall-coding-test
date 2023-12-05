@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainfall.Api", "Rainfall.Api\Rainfall.Api.csproj", "{55CA37BB-CC0C-4673-BB41-4833847B2694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainfall.Api.Tests", "Rainfall.Api.Tests\Rainfall.Api.Tests.csproj", "{5EA24A0B-FBF5-419E-9DE6-477A03330085}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainfall.Api.Tests", "Rainfall.Api.Tests\Rainfall.Api.Tests.csproj", "{C05C3F7E-83C0-40E0-A506-1791E3B346B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,9 @@ Global
 		{5EA24A0B-FBF5-419E-9DE6-477A03330085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EA24A0B-FBF5-419E-9DE6-477A03330085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EA24A0B-FBF5-419E-9DE6-477A03330085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C05C3F7E-83C0-40E0-A506-1791E3B346B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C05C3F7E-83C0-40E0-A506-1791E3B346B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C05C3F7E-83C0-40E0-A506-1791E3B346B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C05C3F7E-83C0-40E0-A506-1791E3B346B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
