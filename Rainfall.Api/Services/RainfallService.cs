@@ -5,14 +5,17 @@ namespace Rainfall.Api.Services;
 public class RainfallService : IRainfallService
 {
     private readonly HttpClient _client;
-    public RainfallService(HttpClient client)
+    private readonly string _baseUrl;
+
+    public RainfallService(HttpClient client, IConfiguration configuration)
     {
         _client = client;
+        _baseUrl = configuration["RainfallFloodMonitoringBaseUrl"];
     }
 
     public async Task<RainfallReadingResult> GetRainfallReadings(string stationId, int count)
     {
-        var url = $"https://environment.data.gov.uk/flood-monitoring/id/stations/{stationId}/readings?_sorted&_limit={count}";
+        var url = $"{_baseUrl}id/stations/{stationId}/readings?_sorted&_limit={count}";
         using var httpResponseMessage = await _client.GetAsync(url);
 
         if(httpResponseMessage.IsSuccessStatusCode)
